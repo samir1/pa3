@@ -12,11 +12,9 @@ class Maze
 	end
 
 	def display
-		width = @n
-		length = @m
 		row = 0
 		for i in 0..@maze.length
-			if i % width == 0 && i != 0
+			if i % @n == 0 && i != 0
 				puts
 				row += 1
 			end
