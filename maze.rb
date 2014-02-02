@@ -32,8 +32,25 @@ class Maze
 		end
 	end
 
-	def solve begX, begY, endX, endY
+	def get_adjacent_openenings index
+		adj = []
+		if @maze[index - @n] == '0'
+			adj.push index - @n
+		end
+		if @maze[index + @n] == '0'
+			adj.push index + @n
+		end
+		if @maze[index - 1] == '0'
+			adj.push index - 1
+		end
+		if @maze[index + 1] == '0'
+			adj.push index + 1
+		end
+		adj
+	end
 
+	def solve begX, begY, endX, endY
+		# recursively get_adjacent_openings until get_adjacent_openings == final index to return true or get_adjacent_openings.size == 0 to return false
 	end
 
 	def trace begX, begY, endX, endY
@@ -49,3 +66,4 @@ end
 maz = Maze.new 9,9
 maz.load "111111111100010001111010101100010101101110101100000101111011101100000101111111111"
 maz.display
+puts maz.get_adjacent_openenings 10
