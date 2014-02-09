@@ -92,24 +92,35 @@ class Maze
 	def redesign
 		string=""
 		(0...@n).each {string+= "1"}
-		(0...(@n-2)).each {string += "1" + genRan + "1"}
+		(0...(@n-2)).each {|x| string += "1" + (x % 2 == 0 ? genEvenRan : genOddRan) + "1"}
 		(0...@n).each {string+= "1"}
 		m = Maze.new @m, @n
 		m.load string
 		m.display
 	end
 
-	def genRan 
+	def genEvenRan 
 		string=""
-		(0...(@m-2)).each {string += rand(2).to_s}
+		(0...(@m-2)).each {|x| string += (x % 2 == 0 ? "0" : rand(2).to_s)}
 		string
 	end
+
+	def genOddRan
+		string=""
+		(0...(@m-2)).each {|x| string += rand(2).to_s}
+		string
+	end
+
 
 end
 
 maz = Maze.new 9,9
 maz.load "111111111100010001111010101100010101101110101100000101111011101100000101111111111"
 maz.display
+puts
 puts maz.solve 1, 1, 7, 7
+puts
 puts "indexes visited: " + (maz.trace 1, 1, 7, 7).to_s
+puts
+puts "Redesigned maze"
 maz.redesign
