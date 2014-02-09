@@ -32,7 +32,7 @@ class Maze
 		end
 	end
 
-	def get_adjacent_openenings index
+	def get_adjacent_openings index
 		adj = []
 		if @maze[index - @n] == '0'
 			adj.push index - @n
@@ -50,11 +50,43 @@ class Maze
 	end
 
 	def solve begX, begY, endX, endY
-		# recursively get_adjacent_openings until get_adjacent_openings == final index to return true or get_adjacent_openings.size == 0 to return false
+		begI = begY*@n + begX
+		endI = endY*@n + endX
+		v = []
+		q = []
+		q.push begI
+		while !q.empty?
+			currentI = q.pop
+			return true if currentI == endI
+			get_adjacent_openings(currentI).each do |x|
+				if !v.include? x
+					q.push x
+					v.push x
+				end
+			end
+		end
+		return false
 	end
 
 	def trace begX, begY, endX, endY
-
+		begI = begY*@n + begX
+		endI = endY*@n + endX
+		v = []
+		q = []
+		solutionVisited = []
+		q.push begI
+		while !q.empty?
+			currentI = q.pop
+			solutionVisited.push currentI
+			return solutionVisited if currentI == endI
+			get_adjacent_openings(currentI).each do |x|
+				if !v.include? x
+					q.push x
+					v.push x
+				end
+			end
+		end
+		return false
 	end
 
 	def redesign
@@ -66,4 +98,5 @@ end
 maz = Maze.new 9,9
 maz.load "111111111100010001111010101100010101101110101100000101111011101100000101111111111"
 maz.display
-puts maz.get_adjacent_openenings 10
+puts maz.solve 1, 1, 7, 7
+puts "indexes visited: " + (maz.trace 1, 1, 7, 7).to_s
