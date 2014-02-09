@@ -13,7 +13,7 @@ class Maze
 
 	def display
 		row = 0
-		for i in 0..@maze.length
+		(0..@maze.length).each do |i|
 			if i % @n == 0 && i != 0
 				puts
 				row += 1
