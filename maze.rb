@@ -90,7 +90,19 @@ class Maze
 	end
 
 	def redesign
+		string=""
+		(0...@n).each {string+= "1"}
+		(0...(@n-2)).each {string += "1" + genRan + "1"}
+		(0...@n).each {string+= "1"}
+		m = Maze.new @m, @n
+		m.load string
+		m.display
+	end
 
+	def genRan 
+		string=""
+		(0...(@m-2)).each {string += rand(2).to_s}
+		string
 	end
 
 end
@@ -100,3 +112,4 @@ maz.load "1111111111000100011110101011000101011011101011000001011110111011000001
 maz.display
 puts maz.solve 1, 1, 7, 7
 puts "indexes visited: " + (maz.trace 1, 1, 7, 7).to_s
+maz.redesign
